@@ -36,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
+    height: '350px',
+    width: '100%',
     paddingTop: '56.25%', // 16:9
+    objectFit: 'cover',
   },
   cardContent: {
     flexGrow: 1,
@@ -61,11 +64,12 @@ const CharacterCard = (props) => {
   return (
     <Container className={classes.cardGrid} maxWidth="md">
       {/* End hero unit */}
-      {characters.map((character) => (
+      {cards.map((card) => (
         <Grid container spacing={4}>
-          {cards.map((card) => (
+          {characters.map((character) => (
             <Grid item key={character[0]} xs={12} sm={6} md={4}>
-              <Card key={character[1].char_id} className={classes.card}>
+              {console.log(character[1].char_id)}
+              <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
                   image={character[1].img}

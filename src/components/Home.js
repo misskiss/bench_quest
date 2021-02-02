@@ -106,6 +106,10 @@ const Home = () => {
         <CharacterCard data={data} />
       </main>
       {/* Footer */}
+      <div>
+        <Button variant="contained">BACK</Button>
+        <Button variant="contained">NEXT</Button>
+      </div>
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
