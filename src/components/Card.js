@@ -44,9 +44,22 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  cardBottom: {
+    display: 'flex',
+    flexGrow: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: '10px',
+    paddingRight: '15px',
+    paddingLeft: '15px',
+    opacity: '80%',
+    color: 'black',
+  },
 }))
 
-const cards = [1, 2, 3]
+const deadOrAlive = {}
+
+const cards = [1]
 
 const CharacterCard = (props) => {
   const classes = useStyles()
@@ -81,14 +94,20 @@ const CharacterCard = (props) => {
                   </Typography>
                   <Typography>{character[1].portrayed}</Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small" color="primary">
+                {/* <CardActions> */}
+                <div className={classes.cardBottom}>
+                  <Typography>"{character[1].nickname}"</Typography>
+                  <Typography color="secondary">
+                    {character[1].status}
+                  </Typography>
+                </div>
+                {/* <Button size="small" color="primary">
                     {character[1].nickname}
                   </Button>
                   <Button size="small" color="primary">
                     {character[1].status}
-                  </Button>
-                </CardActions>
+                  </Button> */}
+                {/* </CardActions> */}
               </Card>
             </Grid>
           ))}

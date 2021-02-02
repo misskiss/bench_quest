@@ -69,7 +69,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'https://www.breakingbadapi.com/api/characters'
+        'https://www.breakingbadapi.com/api/characters?limit=10&offset=10'
       )
 
       setData(result.data)
