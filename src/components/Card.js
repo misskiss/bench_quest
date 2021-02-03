@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -45,12 +45,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const deadOrAlive = {}
-
 const cards = [1]
 
 const CharacterCard = ({ data, loading }) => {
+  const [statusColor, setColor] = useState('')
   const classes = useStyles()
+
+  const deadOrAlive = (char) => {
+    if (char.status === 'Alive') {
+      return 'green'
+    } else if (char.status === 'Deceased') {
+      return 'red'
+    }
+    return 'black'
+  }
 
   if (loading) {
     return <Typography>Loading...</Typography>
@@ -79,7 +87,18 @@ const CharacterCard = ({ data, loading }) => {
                 {/* <CardActions> */}
                 <div className={classes.cardBottom}>
                   <Typography>"{character.nickname}"</Typography>
-                  <Typography color="secondary">{character.status}</Typography>
+                  {/* {character.status === 'Alive'
+                    ? setColor('primary')
+                    : setColor('secondary')} */}
+                  <Typography
+                    style={{
+                      color: deadOrAlive(character),
+                      fontWeight: 'bold',
+                      opacity: '75%',
+                    }}
+                  >
+                    {character.status}
+                  </Typography>
                 </div>
               </Card>
             </Grid>

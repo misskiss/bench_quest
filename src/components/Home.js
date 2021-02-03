@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link'
 import background from '../assets/breaking-bad-logo.jpg'
 import CharacterCard from './Card'
 import Pagination from '@material-ui/lab/Pagination'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 function Copyright() {
   return (
@@ -22,6 +23,14 @@ function Copyright() {
     </Typography>
   )
 }
+
+const theme = createMuiTheme({
+  palette: {
+    secondary: {
+      main: '#c0ca33',
+    },
+  },
+})
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -53,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
+    width: '100%',
   },
   paginationButtons: {
     display: 'flex',
@@ -64,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   ul: {
     '& .MuiPaginationItem-root': {
       color: theme.palette.background.paper,
-      backgroundColor: '#282c34',
+      // backgroundColor: '#282c34',
       marginTop: '-20px',
     },
   },
@@ -127,18 +137,18 @@ const Home = () => {
         <CharacterCard data={currentData} loading={loading} />
       </main>
       {/* Footer */}
-      <Pagination
-        classes={{ ul: classes.ul }}
-        count={totalPages}
-        size="large"
-        page={currentPage}
-        onChange={handleChange}
-      />
+      <MuiThemeProvider theme={theme}>
+        <Pagination
+          color="secondary"
+          classes={{ ul: classes.ul }}
+          count={totalPages}
+          size="large"
+          page={currentPage}
+          onChange={handleChange}
+        />
+      </MuiThemeProvider>
       <div className={classes.paginationButtons}></div>
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
         <Typography
           variant="subtitle1"
           align="center"
