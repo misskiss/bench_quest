@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1]
 
 const CharacterCard = ({ data, loading }) => {
-  const [statusColor, setColor] = useState('')
   const classes = useStyles()
 
   const deadOrAlive = (char) => {
