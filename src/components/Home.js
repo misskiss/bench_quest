@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -75,35 +70,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-// const cards = [1, 2, 3]
-
 const Home = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage, setDataPerPage] = useState(6)
+  const [dataPerPage] = useState(6)
 
-  // const handleChange = (event, value) => {
-  //   setPage(value)
-  // }
+  const handleChange = (event, value) => {
+    setCurrentPage(value)
+  }
 
   const classes = useStyles()
-
-  // useEffect(() => {
-  //   const fetchAllData = async () => {
-  //     const result = await axios(
-  //       'https://www.breakingbadapi.com/api/characters'
-  //     )
-  //     setData(result.data)
-  //   }
-  //   fetchAllData()
-  // }, [])
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true)
       const result = await axios.get(
-        'https://www.breakingbadapi.com/api/characters?limit=6&offset=0'
+        'https://www.breakingbadapi.com/api/characters'
       )
       setData(result.data)
       setLoading(false)
@@ -111,9 +94,11 @@ const Home = () => {
     fetchData()
   }, [])
 
-  // const totalPages = data
+  const indexOfLastData = currentPage * dataPerPage
+  const indexOfFirstData = indexOfLastData - dataPerPage
+  const currentData = data.slice(indexOfFirstData, indexOfLastData)
+  const totalPages = Math.ceil(data.length / dataPerPage)
 
-  console.log('it work?? ', data)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -139,21 +124,17 @@ const Home = () => {
             </div>
           </Container>
         </div>
-        <CharacterCard data={data} />
+        <CharacterCard data={currentData} loading={loading} />
       </main>
       {/* Footer */}
       <Pagination
         classes={{ ul: classes.ul }}
-        count={8}
+        count={totalPages}
         size="large"
-        // page={page}
-        // onChange={handleChange}
-        // variant="outlined"
+        page={currentPage}
+        onChange={handleChange}
       />
-      <div className={classes.paginationButtons}>
-        {/* <Button variant="contained">BACK</Button>
-        <Button variant="contained">NEXT</Button> */}
-      </div>
+      <div className={classes.paginationButtons}></div>
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
