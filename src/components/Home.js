@@ -84,7 +84,7 @@ const Home = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage] = useState(6)
+  const [dataPerPage] = useState(3)
 
   const handleChange = (event, value) => {
     setCurrentPage(value)
