@@ -61,53 +61,36 @@ const deadOrAlive = {}
 
 const cards = [1]
 
-const CharacterCard = (props) => {
+const CharacterCard = ({ data, loading }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
-  const characters = Object.keys(props.data).map(function (key) {
-    return [Number(key), props.data[key]]
-  })
-
-  console.log(characters[0][1])
+  // console.log(characters[0][1])
   return (
     <Container className={classes.cardGrid} maxWidth="md">
       {/* End hero unit */}
       {cards.map((card) => (
         <Grid container spacing={4}>
-          {characters.map((character) => (
-            <Grid item key={character[0]} xs={12} sm={6} md={4}>
-              {console.log(character[1].char_id)}
+          {data.map((character) => (
+            <Grid item key={character} xs={12} sm={6} md={4}>
+              {console.log(character.char_id)}
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image={character[1].img}
+                  image={character.img}
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {character[1].name}
+                    {character.name}
                   </Typography>
-                  <Typography>{character[1].portrayed}</Typography>
+                  <Typography>{character.portrayed}</Typography>
                 </CardContent>
                 {/* <CardActions> */}
                 <div className={classes.cardBottom}>
-                  <Typography>"{character[1].nickname}"</Typography>
-                  <Typography color="secondary">
-                    {character[1].status}
-                  </Typography>
+                  <Typography>"{character.nickname}"</Typography>
+                  <Typography color="secondary">{character.status}</Typography>
                 </div>
-                {/* <Button size="small" color="primary">
-                    {character[1].nickname}
-                  </Button>
-                  <Button size="small" color="primary">
-                    {character[1].status}
-                  </Button> */}
-                {/* </CardActions> */}
               </Card>
             </Grid>
           ))}

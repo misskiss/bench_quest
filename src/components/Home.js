@@ -13,13 +13,14 @@ import Container from '@material-ui/core/Container'
 import Link from '@material-ui/core/Link'
 import background from '../assets/breaking-bad-logo.jpg'
 import CharacterCard from './Card'
+import Pagination from '@material-ui/lab/Pagination'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Michelle Kiss
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -58,26 +59,61 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
   },
+  paginationButtons: {
+    display: 'flex',
+    width: '910px',
+    justifyContent: 'space-between',
+    marginTop: '-30px',
+    marginBottom: '50px',
+  },
+  ul: {
+    '& .MuiPaginationItem-root': {
+      color: theme.palette.background.paper,
+      backgroundColor: '#282c34',
+      marginTop: '-20px',
+    },
+  },
 }))
 
 // const cards = [1, 2, 3]
 
 const Home = () => {
-  const [data, setData] = useState({ characters: [] })
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [dataPerPage, setDataPerPage] = useState(6)
+
+  // const handleChange = (event, value) => {
+  //   setPage(value)
+  // }
+
   const classes = useStyles()
+
+  // useEffect(() => {
+  //   const fetchAllData = async () => {
+  //     const result = await axios(
+  //       'https://www.breakingbadapi.com/api/characters'
+  //     )
+  //     setData(result.data)
+  //   }
+  //   fetchAllData()
+  // }, [])
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        'https://www.breakingbadapi.com/api/characters?limit=10&offset=10'
+      setLoading(true)
+      const result = await axios.get(
+        'https://www.breakingbadapi.com/api/characters?limit=6&offset=0'
       )
-
       setData(result.data)
+      setLoading(false)
     }
     fetchData()
   }, [])
 
-  // console.log('it work?? ', data)
+  // const totalPages = data
+
+  console.log('it work?? ', data)
   return (
     <React.Fragment>
       <CssBaseline />
@@ -106,9 +142,17 @@ const Home = () => {
         <CharacterCard data={data} />
       </main>
       {/* Footer */}
-      <div>
-        <Button variant="contained">BACK</Button>
-        <Button variant="contained">NEXT</Button>
+      <Pagination
+        classes={{ ul: classes.ul }}
+        count={8}
+        size="large"
+        // page={page}
+        // onChange={handleChange}
+        // variant="outlined"
+      />
+      <div className={classes.paginationButtons}>
+        {/* <Button variant="contained">BACK</Button>
+        <Button variant="contained">NEXT</Button> */}
       </div>
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
