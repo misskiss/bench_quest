@@ -109,6 +109,8 @@ const Home = () => {
   const currentData = data.slice(indexOfFirstData, indexOfLastData)
   const totalPages = Math.ceil(data.length / dataPerPage)
 
+  console.log(data)
+
   return (
     <React.Fragment>
       <CssBaseline />
