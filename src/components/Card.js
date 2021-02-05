@@ -83,12 +83,8 @@ const CharacterCard = ({ data, loading }) => {
                   </Typography>
                   <Typography>{character.portrayed}</Typography>
                 </CardContent>
-                {/* <CardActions> */}
                 <div className={classes.cardBottom}>
                   <Typography>"{character.nickname}"</Typography>
-                  {/* {character.status === 'Alive'
-                    ? setColor('primary')
-                    : setColor('secondary')} */}
                   <Typography
                     style={{
                       color: deadOrAlive(character),

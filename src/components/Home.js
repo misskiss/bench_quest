@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
 import background from '../assets/breaking-bad-logo.jpg'
 import CharacterCard from './Card'
@@ -84,11 +85,8 @@ const Home = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage] = useState(3)
-
-  const handleChange = (event, value) => {
-    setCurrentPage(value)
-  }
+  const [dataPerPage] = useState(3) // change this initial value to instantly change number of cards displayed
+  const [offset, setOffset] = useState(0)
 
   const classes = useStyles()
 
@@ -96,21 +94,23 @@ const Home = () => {
     const fetchData = async () => {
       setLoading(true)
       const result = await axios.get(
-        'https://www.breakingbadapi.com/api/characters'
+        `https://www.breakingbadapi.com/api/characters?limit=3&offset=${offset}`
       )
       setData(result.data)
       setLoading(false)
     }
     fetchData()
-  }, [])
+  }, [offset])
 
-  const indexOfLastData = currentPage * dataPerPage
-  const indexOfFirstData = indexOfLastData - dataPerPage
-  const currentData = data.slice(indexOfFirstData, indexOfLastData)
-  const totalPages = Math.ceil(data.length / dataPerPage)
-
-  console.log(data)
-
+  const handleClick = (value) => {
+    if (value.target.outerText === 'NEXT') {
+      setCurrentPage(currentPage + 1)
+      setOffset(offset + 3)
+    } else {
+      setCurrentPage(currentPage - 1)
+      setOffset(offset - 3)
+    }
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -136,18 +136,24 @@ const Home = () => {
             </div>
           </Container>
         </div>
-        <CharacterCard data={currentData} loading={loading} />
+        <CharacterCard data={data} loading={loading} />
       </main>
       {/* Footer */}
       <MuiThemeProvider theme={theme}>
-        <Pagination
+        {/* <Pagination
           color="secondary"
           classes={{ ul: classes.ul }}
           count={totalPages}
           size="large"
           page={currentPage}
           onChange={handleChange}
-        />
+        /> */}
+        <Button variant="contained" onClick={handleClick}>
+          Previous
+        </Button>
+        <Button variant="contained" onClick={handleClick}>
+          Next
+        </Button>
       </MuiThemeProvider>
       <div className={classes.paginationButtons}></div>
       <footer className={classes.footer}>
