@@ -15,11 +15,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    paddingRight: 'inherit',
+    paddingLeft: 'inherit',
   },
   card: {
     height: '100%',
+    width: '280px',
     display: 'flex',
     flexDirection: 'column',
   },

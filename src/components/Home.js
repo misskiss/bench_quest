@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import Link from '@material-ui/core/Link'
 import background from '../assets/breaking-bad-logo.jpg'
 import CharacterCard from './Card'
-import Pagination from '@material-ui/lab/Pagination'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 function Copyright() {
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     background: `url(${background})`,
     height: theme.spacing(48),
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -85,7 +84,6 @@ const Home = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage] = useState(3) // change this initial value to instantly change number of cards displayed
   const [offset, setOffset] = useState(0)
 
   const classes = useStyles()
@@ -140,22 +138,15 @@ const Home = () => {
       </main>
       {/* Footer */}
       <MuiThemeProvider theme={theme}>
-        {/* <Pagination
-          color="secondary"
-          classes={{ ul: classes.ul }}
-          count={totalPages}
-          size="large"
-          page={currentPage}
-          onChange={handleChange}
-        /> */}
-        <Button variant="contained" onClick={handleClick}>
-          Previous
-        </Button>
-        <Button variant="contained" onClick={handleClick}>
-          Next
-        </Button>
+        <div className={classes.paginationButtons}>
+          <Button variant="contained" onClick={handleClick}>
+            Previous
+          </Button>
+          <Button variant="contained" onClick={handleClick}>
+            Next
+          </Button>
+        </div>
       </MuiThemeProvider>
-      <div className={classes.paginationButtons}></div>
       <footer className={classes.footer}>
         <Typography
           variant="subtitle1"
